@@ -37,9 +37,15 @@ def entry(request):
         Reference=request.POST.get('Reference_student')
         aadhar=request.POST.get('aadhar')
         section=request.POST.get("department")
-        otherIdentity=request.POST.get("otherIdentity")
+        other=request.POST.get("otherIdentity")
+        other1=""
+        if(other==None):
+            other1+="NA"
+        else:
+            other1=other
+        print("Value of other: ",other1)
         image=path+"/image.jpg"
-        log=visitor(name=name,entry=current_time,phone=phone,address=address,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section,photo=image)
+        log=visitor(name=name,entry=current_time,phone=phone,address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section,photo=image)
         log.save()
         return render(request, 'Index.html')
     return render(request,'Entry_Form.html')

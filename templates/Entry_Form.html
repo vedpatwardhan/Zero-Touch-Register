@@ -108,7 +108,7 @@
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" >
 					<span class="label-input100" >If Others then specify </span>
-					<input class="input100" type="text" id="otherIdentity" name="identity" placeholder="Enter Your Identity " disabled>
+					<input  class="input100" type="text" id="otherIdentity" name="otherIdentity" placeholder="Enter Your Identity " disabled>
 				</div>
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" >
@@ -163,6 +163,7 @@
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
 	<script type="text/javascript">
+		document.getElementById("otherIdentity").defaultValue = "Not Applicable";
 		$(function () {
         $("#identity").change(function () {
             if ($(this).val() == "Others") {
