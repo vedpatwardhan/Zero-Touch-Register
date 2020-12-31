@@ -32,7 +32,13 @@
 </head>
 <body onload=display_ct()>
 
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
@@ -113,7 +119,7 @@
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" >
 					<span class="label-input100">Reference number </span>
-					<input class="input100" type="number" name="Reference_student" placeholder="Enter Reference Number " required>
+					<input class="input100" type="number" id="ref" name="Reference_student" placeholder="Enter Reference Number " required>
 				</div>
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" >
@@ -151,7 +157,10 @@
 		</div>
 	</div>
 
+	<script>
+		var ref=document.getElementById("ref").value;
 
+	</script>
 
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>

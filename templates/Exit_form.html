@@ -33,7 +33,13 @@
 </head>
 <body onload=display_ct()>
 
-	
+	{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
@@ -58,7 +64,7 @@
 
 
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
+					<button id="submit" class="contact100-form-btn">
 						<span>
 							Submit
 							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -113,6 +119,7 @@
 			});
 		})
 	</script>
+
 <!--===============================================================================================-->
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<script src="vendor/daterangepicker/daterangepicker.js"></script>
