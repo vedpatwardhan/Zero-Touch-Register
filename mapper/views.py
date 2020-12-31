@@ -43,19 +43,27 @@ def entry(request):
         log.save()
         return render(request, 'Index.html')
     return render(request,'Entry_Form.html')
+
 def exit(request):
     india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
     now = now.astimezone(india_tz)
     current_time = now.strftime("%d/%m/%Y, %H:%M:%S")
     if request.method == 'POST':
+        try:
+            Reference_student = request.POST.get('Reference_student')
 
-        Reference_student = request.POST.get('Reference_student')
-        o=visitor.objects.filter(Reference=Reference_student).order_by('-entry')[0]
-        print(o)
-        o.exit=str(current_time)
-        o.save()
-        return render(request, 'Index.html')
+            o=visitor.objects.filter(Reference=Reference_student).order_by('-id')[0]
+            print(o)
+            if(o.exit=="Still in Campus"):
+                o.exit=str(current_time)
+                o.save()
+            else:
+                return HttpResponse('<b>Reference no. not found as Entered</b>')
+            return render(request, 'Index.html')
+
+        except:
+            return HttpResponse('<b>Reference no. not found</b>')
 
     return render(request, 'Exit_form.html')
 
