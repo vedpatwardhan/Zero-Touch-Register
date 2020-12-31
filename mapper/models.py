@@ -15,6 +15,6 @@ class visitor(models.Model):
     aadhar=models.CharField(max_length=16,default="")
     photo=models.ImageField(default=c+"/image.jpg")
     section=models.CharField(max_length=100,default="")
-    otherIdentity=models.CharField(max_length=100,default="NA")
+    other=models.CharField(max_length=100,default="NA")
     def __str__(self):  # __str__ for Python 3, __unicode__ for Python 2
         return self.name+"_"+self.entry
