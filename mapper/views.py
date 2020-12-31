@@ -10,6 +10,7 @@ from .forms import EntryForm
 from .forms import ExitForm
 import os
 from datetime import datetime
+from dateutil import tz
 from .models import visitor
 
 
@@ -19,7 +20,9 @@ path=os.getcwd()
 def home(request):
     return render(request,'Index.html')
 def entry(request):
+    india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
+    now=now.astimezone(india_tz)
     current_time=now.strftime("%d/%m/%Y, %H:%M:%S")
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -41,8 +44,10 @@ def entry(request):
         return render(request, 'Index.html')
     return render(request,'Entry_Form.html')
 def exit(request):
+    india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
-    current_time=now.strftime("%d/%m/%Y, %H:%M:%S")
+    now = now.astimezone(india_tz)
+    current_time = now.strftime("%d/%m/%Y, %H:%M:%S")
     if request.method == 'POST':
 
         Reference_student = request.POST.get('Reference_student')
