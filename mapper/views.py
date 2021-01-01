@@ -30,20 +30,26 @@ def entry(request):
         aadhar=request.POST.get('aadhar')
         section=request.POST.get("department")
         other=request.POST.get("otherIdentity")
+        imagename=request.POST.get("imagename")
         other1=""
-
+        print(imagename)
         if(other==None):
             other1+="NA"
         else:
             other1=other
         print("Value of other: ",other1)
-
+        imagename1=""
+        if (imagename == None):
+            print("HERE")
+            imagename1 += "NA"
+        else:
+            imagename1=imagename
         if(visitor.objects.filter(Reference=Reference).order_by('-id').exists()):
             query=visitor.objects.filter(Reference=Reference).order_by('-id')[0]
             if(query.exit=="Still in Campus"):
                 messages.error(request, 'Reference ID has already been issued.')
         else:
-            log=visitor(name=name,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
+            log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
             return render(request, 'Index.html')
     return render(request,'Entry_Form.html')
@@ -78,7 +84,7 @@ def export_users_csv_today(request):
     response['Content-Disposition'] = 'attachment; filename="Today\'s Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited '])
+    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken'])
 
     users = visitor.objects.filter(dateofentry=str(date.today())).values_list()
     for user in users:
@@ -91,7 +97,7 @@ def export_users_csv_overall(request):
     response['Content-Disposition'] = 'attachment; filename="Overall Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited '])
+    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken'])
 
     users = visitor.objects.all().values_list()
     for user in users:
@@ -104,7 +110,7 @@ def export_users_csv_inside(request):
     response['Content-Disposition'] = 'attachment; filename="Still In Campus Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited '])
+    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken'])
 
     users = visitor.objects.filter(exit="Still in Campus").values_list()
     for user in users:

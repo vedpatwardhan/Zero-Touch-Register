@@ -45,7 +45,7 @@
 
 	    <p class="label-input100">Date/Time: <span id="ct"></span></p>
 
-			<form class="contact100-form validate-form" method="post">
+			<form class="contact100-form validate-form" method="post" name="entry">
 				{% csrf_token %}
     			{{ form }}
 				<input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
@@ -136,7 +136,7 @@
 				<div class="wrap-input100 bg1 rs1-wrap-input100 results" id="results">
 
 				</div>
-
+				<input type="text" id="imagename">
 				<div class="container-contact100-form-btn">
 					<button id="snap" type="button" class="contact100-form-btn">
 						<span>
@@ -239,7 +239,7 @@
 	 width: 320,
 	 height: 240,
 	 image_format: 'jpeg',
-	 jpeg_quality: 90
+	 jpeg_quality: 75
 	});
 	Webcam.attach( '#my_camera' );
 
@@ -254,20 +254,39 @@
 					'<img src="' + data_uri + '"/>';
 		});
 	});
+	var name="";
+	$(function () {
+        $("#name").change(function () {
+             name=$(this).val();
+
+        });
+    });
+
 	$(function() {
     $("#snap").click(function() {
         html2canvas($("#results"), {
             onrendered: function(canvas) {
                 theCanvas = canvas;
-			 const name=document.getElementById('name').innerHTML.value;
-
 
                 canvas.toBlob(function(blob) {
-                    saveAs(blob, name+".png");
+                	var currentTime = new Date();
+                	var currentOffset = currentTime.getTimezoneOffset();
+					var ISTOffset = 330;   // IST offset UTC +5:30
+                	currentTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+                	var day = String(currentTime.getDate()).padStart(2, '0');
+					var month = String(currentTime.getMonth() + 1).padStart(2, '0'); //January is 0!
+					var year = currentTime.getFullYear();
+                	var hour=currentTime.getHours();
+                	var minutes=currentTime.getMinutes();
+                	var seconds=currentTime.getSeconds();
+                	var filename=year+"/"+month+"/"+day+"/"+hour+":"+minutes+":"+seconds+"_"+name+".png";
+                	document.getElementById("imagename").value = filename;
+                    saveAs(blob, filename);
                 });
             }
         });
     });
+
 });
 
    </script>

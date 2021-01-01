@@ -16,5 +16,6 @@ class visitor(models.Model):
     Reference=models.CharField(max_length=100,default="")
     aadhar=models.CharField(max_length=16,default="")
     section=models.CharField(max_length=100,default="")
+    imagename=models.CharField(max_length=100,default="NA")
     def __str__(self):  # __str__ for Python 3, __unicode__ for Python 2
         return self.name+"_"+self.entry
