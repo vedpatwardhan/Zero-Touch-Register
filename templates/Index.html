@@ -33,6 +33,12 @@
 
 
 <body onload=display_ct()>
+{% if request.user.is_superuser %}
+
+    <button style='margin-right:16px' onclick="window.location.href='{% url "todayreport" %}'">Generate Today's Report</button>
+    <button style='margin-right:16px' onclick="window.location.href='{% url "overallreport" %}'">Generate Overall Report</button>
+    <button style='margin-right:16px' onclick="window.location.href='{% url "stillinsidereport" %}'">Generate Report of Visitors Still On Campus</button>
+{% endif %}
     <div class="container-contact100">
         
         <div class="wrap-contact100">
