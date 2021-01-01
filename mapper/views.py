@@ -1,13 +1,7 @@
-import firebase_admin
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect , JsonResponse
-import cv2
-from django.template import RequestContext
-from django.template.context_processors import csrf
 
-from firebase_admin import credentials, firestore
-from .forms import EntryForm
-from .forms import ExitForm
+from django.shortcuts import render
+import cv2
+
 import os
 from datetime import datetime
 from dateutil import tz
@@ -38,6 +32,7 @@ def entry(request):
         section=request.POST.get("department")
         other=request.POST.get("otherIdentity")
         other1=""
+
         if(other==None):
             other1+="NA"
         else:
