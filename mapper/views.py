@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import date
 import os
@@ -51,7 +51,8 @@ def entry(request):
         else:
             log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
-            return render(request, 'Index.html')
+            # return render(request, 'Index.html')
+            return HttpResponseRedirect('/')
     return render(request,'Entry_Form.html')
 
 def exit(request):
@@ -67,7 +68,7 @@ def exit(request):
             if(o.exit=="Still in Campus"):
                 o.exit=str(current_time)
                 o.save()
-                return render(request, 'Index.html')
+                return HttpResponseRedirect('/')
             else:
                 messages.error(request, 'Reference ID is not issued.')
 
