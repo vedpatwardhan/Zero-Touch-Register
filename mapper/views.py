@@ -48,6 +48,13 @@ def entry(request):
             query=visitor.objects.filter(Reference=Reference).order_by('-id')[0]
             if(query.exit=="Still in Campus"):
                 messages.error(request, 'Reference ID has already been issued.')
+            else:
+                log = visitor(name=name, imagename=imagename1, entry=current_time, phone=phone,
+                              dateofentry=str(date.today()), address=address, other=other1, purpose=purpose,
+                              email=email, identity=identity, Reference=Reference, aadhar=aadhar, section=section)
+                log.save()
+                # return render(request, 'Index.html')
+                return HttpResponseRedirect('/')
         else:
             log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
