@@ -91,7 +91,7 @@ def export_users_csv_today(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Today\'s Report.csv"'
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
 
     users = visitor.objects.filter(dateofentry=str(date.today())).values_list()
     for user in users:
@@ -104,7 +104,7 @@ def export_users_csv_overall(request):
     response['Content-Disposition'] = 'attachment; filename="Overall Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
 
     users = visitor.objects.all().values_list()
     for user in users:
@@ -117,7 +117,7 @@ def export_users_csv_inside(request):
     response['Content-Disposition'] = 'attachment; filename="Still In Campus Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
 
     users = visitor.objects.filter(exit="Still in Campus").values_list()
     for user in users:
@@ -140,7 +140,7 @@ def export_users_csv_date(request):
 
     print(datel)
     writer = csv.writer(response)
-    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
     print("here")
     passv=""
     if len(datel)!=0:
