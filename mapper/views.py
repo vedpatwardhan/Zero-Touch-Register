@@ -150,6 +150,6 @@ def export_users_csv_date(request):
     for user in users:
         writer.writerow(user)
     if request.method=="GET":
-        if(len(datel)!=0):
+        while(len(datel)!=0):
             datel.pop(0)
     return response
