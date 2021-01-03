@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
@@ -28,6 +28,10 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
 <!--===============================================================================================-->
 </head>
 
@@ -35,9 +39,65 @@
 <body onload=display_ct()>
 {% if request.user.is_superuser %}
 
-    <button style='margin-right:16px' onclick="window.location.href='{% url "todayreport" %}'">Generate Today's Report</button>
-    <button style='margin-right:16px' onclick="window.location.href='{% url "overallreport" %}'">Generate Overall Report</button>
-    <button style='margin-right:16px' onclick="window.location.href='{% url "stillinsidereport" %}'">Generate Report of Visitors Still On Campus</button>
+    <button style='background-color: #edd724; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;' onclick="window.location.href='{% url "todayreport" %}'">Generate Today's Report</button>
+    <button style='
+background-color: #5fb0f3; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;' onclick="window.location.href='{% url "overallreport" %}'">Generate Overall Report</button>
+    <button style='background-color: #3dc52a; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;' onclick="window.location.href='{% url "stillinsidereport" %}'">Generate Report of Visitors Still On Campus</button>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+    <div>
+
+    <label for="date">Select Date to Generate Report:</label>
+        <input style="border: thin solid #000000;" type="text" id="datepicker" name="date">
+    <button id="custom"  style="background-color: #FF0000; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;" onclick="window.location.href='{% url "customreport" %}'" > Generate Report</button>
+    </div>
+<script>$("#datepicker").change(function(){
+
+      let date = document.getElementById('datepicker').value;
+      console.log(date);
+      $.ajax({
+          url: '{% url 'customreport' %}',
+          type:"POST",
+          data: {
+               'csrfmiddlewaretoken' : '{{ csrf_token }}',
+              'date':date,
+          }, dataType: 'json',
+          cache: false,
+
+      });
+  });</script>
+
 {% endif %}
     <div class="container-contact100">
         

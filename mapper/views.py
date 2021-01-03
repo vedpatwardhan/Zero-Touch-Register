@@ -124,3 +124,29 @@ def export_users_csv_inside(request):
         writer.writerow(user)
 
     return response
+
+datel=[]
+def export_users_csv_date(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=" Custom Report.csv"'
+
+    date = request.POST.get('date')
+    tobepassed=""
+    global datel
+    if(date!=None):
+        date = date.split('/')
+        tobepassed+= date[2] + "-" + date[0] + "-" + date[1]
+        datel.append(tobepassed)
+
+    print(datel)
+    writer = csv.writer(response)
+    writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    print("here")
+    users = visitor.objects.filter(dateofentry=datel[len(datel)-1]).values_list()
+
+    for user in users:
+        writer.writerow(user)
+    if request.method=="GET":
+        if(len(datel)!=0):
+            datel.pop(0)
+    return response
