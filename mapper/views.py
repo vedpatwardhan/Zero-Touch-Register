@@ -142,7 +142,10 @@ def export_users_csv_date(request):
     writer = csv.writer(response)
     writer.writerow(['Sr No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
     print("here")
-    users = visitor.objects.filter(dateofentry=datel[len(datel)-1]).values_list()
+    passv=""
+    if len(datel)!=0:
+        passv+=datel[len(datel)-1]
+    users = visitor.objects.filter(dateofentry=passv).values_list()
 
     for user in users:
         writer.writerow(user)
