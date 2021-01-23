@@ -26,7 +26,8 @@ SECRET_KEY = '0mu3!yeg$1&6l@tt7uh=#hw*+cz949of9dj0(i7qk0x(@38b6z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.10.8.81',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mapper.apps.MapperConfig',
-    'import_export'
+    'import_export',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [

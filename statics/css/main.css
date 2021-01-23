@@ -795,3 +795,25 @@ textarea.input100 {
     padding: 15px 0px 0 0px;
   }
 }
+
+.pict{
+    display: block;
+      width: 100%;
+      font-family: Montserrat-Black;
+      font-size: 30px;
+      color: #333333;
+      line-height: 1.2;
+      text-align: center;
+
+}
+
+.why{
+display: block;
+  width: 100%;
+  font-family: Montserrat-Black;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+
+}

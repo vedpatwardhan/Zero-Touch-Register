@@ -54,8 +54,9 @@
 				</span>
 
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-					<span class="label-input100">FULL NAME</span>
+					<span class="label-input100">FULL NAME<font color="red">	*</font></span>
 					<input class="input100" type="text" id="name" name="name" placeholder="Enter Your Name" required>
+
 				</div>
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
@@ -66,7 +67,7 @@
 
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
-					<span class="label-input100">Phone</span>
+					<span class="label-input100">Phone<font color="red">	*</font></span>
 					<input class="input100" type="number" name="phone" placeholder="Enter Number Phone" required>
 				</div>
 
@@ -88,6 +89,7 @@
 							<option>Admission</option>
 							<option>Student Section</option>
 							<option>Library</option>
+							<option>Hostel</option>
 							<option>First Year Department</option>
 							<option>Computer Department</option>
 							<option>IT Department</option>
@@ -118,7 +120,7 @@
 				</div>
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100" >
-					<span class="label-input100">Reference number </span>
+					<span class="label-input100">Reference number<font color="red">	*</font> </span>
 					<input class="input100" type="number" id="ref" name="Reference_student" placeholder="Enter Reference Number " required>
 				</div>
 
@@ -174,7 +176,7 @@
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
 	<script type="text/javascript">
-		document.getElementById("otherIdentity").defaultValue = "Not Applicable";
+		document.getElementById("otherIdentity").defaultValue = "NA";
 		$(function () {
         $("#identity").change(function () {
             if ($(this).val() == "Others") {
