@@ -49,7 +49,7 @@
 				{% csrf_token %}
     			{{ form }}
 				<input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-				<span onclick="window.location.href='/'" class="contact100-form-title">
+				<span onclick="window.location.href='{% url "home" %}'" class="contact100-form-title">
 					Entry
 				</span>
 

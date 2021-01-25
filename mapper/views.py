@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from datetime import date
 import os
+import csv
 from datetime import datetime
 from dateutil import tz
 from .models import visitor
@@ -12,20 +14,27 @@ path=os.getcwd()
 
 from django.shortcuts import redirect
 def home(request):
-    if(not User.is_authenticated and not User.is_active and not User.is_superuser):
+    if(request.method=='POST'):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return render(request, 'Index.html')
-        return render(request, 'login_page.html')
-    else:
-        if(request.method=="POST"):
-            logout(request)
-            return render(request, 'login_page.html')
-        return render(request, 'Index.html')
+            return landing_page(request)
+        return HttpResponseRedirect('/')
+
+    return render(request,'login_page.html')
+
+@login_required(login_url='/')
+def landing_page(request):
+    return render(request,'Index.html')
+
+@login_required(login_url='/')
+def logout(request):
+    logout(request)
+
+@login_required(login_url='/')
 def entry(request):
     india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
@@ -69,7 +78,7 @@ def entry(request):
                               email=email, identity=identity, Reference=Reference, aadhar=aadhar, section=section)
                 log.save()
                 # return render(request, 'Index.html')
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('entry/')
         else:
             log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
@@ -77,6 +86,7 @@ def entry(request):
             return HttpResponseRedirect('/')
     return render(request,'Entry_Form.html')
 
+@login_required(login_url='/')
 def exit(request):
     india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
@@ -100,8 +110,9 @@ def exit(request):
     return render(request, 'Exit_form.html')
 
 
-import csv
 
+
+@login_required(login_url='/')
 def export_users_csv_today(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Today\'s Report.csv"'
@@ -114,6 +125,7 @@ def export_users_csv_today(request):
 
     return response
 
+@login_required(login_url='/')
 def export_users_csv_overall(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Overall Report.csv"'
@@ -127,6 +139,7 @@ def export_users_csv_overall(request):
 
     return response
 
+@login_required(login_url='/')
 def export_users_csv_inside(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Still In Campus Report.csv"'
@@ -141,6 +154,7 @@ def export_users_csv_inside(request):
     return response
 
 datel=[]
+@login_required(login_url='/')
 def export_users_csv_date(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=" Custom Report.csv"'
