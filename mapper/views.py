@@ -21,7 +21,8 @@ def home(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return landing_page(request)
+            return HttpResponseRedirect('home/')
+            #return landing_page(request)
         return HttpResponseRedirect('/')
 
     return render(request,'login_page.html')
