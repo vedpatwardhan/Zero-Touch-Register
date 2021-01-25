@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render
 from datetime import date
 import os
@@ -22,7 +23,6 @@ def home(request):
             login(request, user)
             # Redirect to a success page.
             return HttpResponseRedirect('home/')
-            #return landing_page(request)
         return HttpResponseRedirect('/')
 
     return render(request,'login_page.html')
@@ -31,9 +31,10 @@ def home(request):
 def landing_page(request):
     return render(request,'Index.html')
 
-@login_required(login_url='/')
 def logout(request):
-    logout(request)
+    print("logout called")
+    auth_logout(request)
+    return HttpResponsePermanentRedirect('/')
 
 @login_required(login_url='/')
 def entry(request):
