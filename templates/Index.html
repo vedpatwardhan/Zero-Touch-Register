@@ -4,42 +4,42 @@
 	<title>Home</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-    {% load static %}
-	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/noui/nouislider.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <!--===============================================================================================-->
+  {% load static %}
+  <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/noui/nouislider.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
-<!--===============================================================================================-->
+  <!--===============================================================================================-->
 </head>
 
 
 <body onload=display_ct()>
-{% if request.user.is_superuser %}
+  {% if request.user.is_superuser %}
 
-    <button style='background-color: #edd724; /* Green */
+  <button style='background-color: #edd724; /* Green */
   border: none;
   color: white;
   padding: 7px 15px;
@@ -47,8 +47,8 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;' onclick="window.location.href='{% url "todayreport" %}'">Generate Today's Report</button>
-    <button style='
-background-color: #5fb0f3; /* Green */
+  <button style='
+  background-color: #5fb0f3; /* Green */
   border: none;
   color: white;
   padding: 7px 15px;
@@ -56,7 +56,7 @@ background-color: #5fb0f3; /* Green */
   text-decoration: none;
   display: inline-block;
   font-size: 16px;' onclick="window.location.href='{% url "overallreport" %}'">Generate Overall Report</button>
-    <button style='background-color: #3dc52a; /* Green */
+  <button style='background-color: #3dc52a; /* Green */
   border: none;
   color: white;
   padding: 7px 15px;
@@ -66,82 +66,89 @@ background-color: #5fb0f3; /* Green */
   font-size: 16px;' onclick="window.location.href='{% url "stillinsidereport" %}'">Generate Report of Visitors Still On Campus</button>
 
   <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
   </script>
-    <div>
+  <div>
 
     <label for="date">Select Date to Generate Report:</label>
-        <input style="border: thin solid #000000;" type="text" id="datepicker" name="date">
+    <input style="border: thin solid #000000;" type="text" id="datepicker" name="date">
     <button id="custom"  style="background-color: #FF0000; /* Green */
-  border: none;
-  color: white;
-  padding: 7px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;" onclick="window.location.href='{% url "customreport" %}'" > Generate Report</button>
-    </div>
-<script>$("#datepicker").change(function(){
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;" onclick="window.location.href='{% url "customreport" %}'" > Generate Report</button>
+  </div>
+  <script>$("#datepicker").change(function(){
 
-      let date = document.getElementById('datepicker').value;
-      console.log(date);
-      $.ajax({
-          url: '{% url 'customreport' %}',
-          type:"POST",
-          data: {
-               'csrfmiddlewaretoken' : '{{ csrf_token }}',
-              'date':date,
-          }, dataType: 'json',
-          cache: false,
+    let date = document.getElementById('datepicker').value;
+    console.log(date);
+    $.ajax({
+      url: '{% url 'customreport' %}',
+      type:"POST",
+      data: {
+       'csrfmiddlewaretoken' : '{{ csrf_token }}',
+       'date':date,
+     }, dataType: 'json',
+     cache: false,
 
-      });
-  });</script>
+   });
+ });</script>
 
-{% endif %}
-    <div class="container-contact100">
-        <span class="pict">
-                SCTR's Pune Institute of Computer Technology <br><span class="why">FE Admissions</span>
-            <div><img src="{% static 'images/pict_logo.png' %}"></div>
+ {% endif %}
+ <div class="container-contact100">
+  <span class="pict">
+    SCTR's Pune Institute of Computer Technology <br><span class="why">FE Admissions</span>
+    <div><img src="{% static 'images/pict_logo.png' %}"></div>
+  </span>
+  <div class="wrap-contact100">
+    <span class="contact100-form-title">
+      Home
+    </span>
+    <div class="wrap-input100 bg1" >
+      <button onclick="window.location.href='{% url "entry" %}'"  class="contact100-form-btn">
+        <span class="fs-20">
+          Entry
+          <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
         </span>
-        <div class="wrap-contact100">
-            <span class="contact100-form-title">
-                Home
-            </span>
-				<div class="wrap-input100 bg1" >
-                        <button onclick="window.location.href='{% url "entry" %}'"  class="contact100-form-btn">
-                            <span class="fs-20">
-                                Entry
-                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                            </span>
-                        </button>
-                    
-                </div>
-                <div class="wrap-input100 bg1" >
-                         <button onclick="window.location.href='{% url "exit" %}'"  class="contact100-form-btn">
-                            <span class="fs-20">
-                                Exit
-                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                            </span>
-                        </button>
+      </button>
 
-                </div>
-            <form class="contact100-form validate-form mt-5" method="post" action="/">
-				{% csrf_token %}
-    			{{ form }}
-				<input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-
-				<div class="container-contact100-form-btn">
-					<a id="logout" type="submit"  class="contact100-form-btn" href='{% url "logout" %}'>
-						<span>
-							Logout
-							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-						</span>
-					</a>
-				</div>
-			</form>
-        </div>
     </div>
+    <div class="wrap-input100 bg1" >
+     <button onclick="window.location.href='{% url "exit" %}'"  class="contact100-form-btn">
+      <span class="fs-20">
+        Exit
+        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+      </span>
+    </button>
+
+  </div>
+  <form class="contact100-form validate-form mt-5" method="post" action="/">
+    {% csrf_token %}
+    {{ form }}
+    <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+    <div class="wrap-input100 bg1" >
+      <button onclick="window.location.href='{% url "logout" %}'"  class="contact100-form-btn">
+        <span class="fs-20">
+          Logout
+          <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+        </span>
+      </button>
+    </div>
+<!--     <div class="wrap-input100 bg1">
+     <a id="logout" type="submit"  class="contact100-form-btn" href='{% url "logout" %}'>
+      <span class="fs-20">
+       Logout
+       <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+     </span>
+   </a>
+ </div> -->
+</form>
+</div>
+</div>
 
 
 
@@ -164,55 +171,55 @@ background-color: #5fb0f3; /* Green */
 
 
 
-    <!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-        <script src="vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/popper.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-        <script src="vendor/select2/select2.min.js"></script>
-        <script type="text/javascript"> 
-            function display_c(){
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<script type="text/javascript"> 
+  function display_c(){
             var refresh=1000; // Refresh rate in milli seconds
             mytime=setTimeout('display_ct()',refresh)
-            }
-            
-            function display_ct() {
+          }
+
+          function display_ct() {
             var x = new Date()
             document.getElementById('ct').innerHTML = x;
             display_c();
-             }
+          }
         </script>
         <script>
+          $(".js-select2").each(function(){
+            $(this).select2({
+              minimumResultsForSearch: 20,
+              dropdownParent: $(this).next('.dropDownSelect2')
+            });
+
+
             $(".js-select2").each(function(){
-                $(this).select2({
-                    minimumResultsForSearch: 20,
-                    dropdownParent: $(this).next('.dropDownSelect2')
-                });
-    
-    
-                $(".js-select2").each(function(){
-                    $(this).on('select2:close', function (e){
-                        if($(this).val() == "Please chooses") {
-                            $('.js-show-service').slideUp();
-                        }
-                        else {
-                            $('.js-show-service').slideUp();
-                            $('.js-show-service').slideDown();
-                        }
-                    });
-                });
-            })
+              $(this).on('select2:close', function (e){
+                if($(this).val() == "Please chooses") {
+                  $('.js-show-service').slideUp();
+                }
+                else {
+                  $('.js-show-service').slideUp();
+                  $('.js-show-service').slideDown();
+                }
+              });
+            });
+          })
         </script>
-    <!--===============================================================================================-->
+        <!--===============================================================================================-->
         <script src="vendor/daterangepicker/moment.min.js"></script>
         <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
+        <!--===============================================================================================-->
         <script src="vendor/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
+        <!--===============================================================================================-->
         
-    <!--===============================================================================================-->
+        <!--===============================================================================================-->
         <script src="js/main.js"></script>
-</body>
+      </body>
