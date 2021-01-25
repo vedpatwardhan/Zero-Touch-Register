@@ -1,4 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from datetime import date
 import os
@@ -10,7 +12,20 @@ path=os.getcwd()
 
 from django.shortcuts import redirect
 def home(request):
-    return render(request,'Index.html')
+    if(not User.is_authenticated and not User.is_active and not User.is_superuser):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            return render(request, 'Index.html')
+        return render(request, 'login_page.html')
+    else:
+        if(request.method=="POST"):
+            logout(request)
+            return render(request, 'login_page.html')
+        return render(request, 'Index.html')
 def entry(request):
     india_tz = tz.gettz('Asia/Kolkata')
     now = datetime.now()
