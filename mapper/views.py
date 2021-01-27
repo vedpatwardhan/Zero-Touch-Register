@@ -80,12 +80,12 @@ def entry(request):
                               email=email, identity=identity, Reference=Reference, aadhar=aadhar, section=section)
                 log.save()
                 # return render(request, 'Index.html')
-                return HttpResponseRedirect('entry/')
+                return HttpResponseRedirect('home/')
         else:
             log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
             # return render(request, 'Index.html')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('home/')
     return render(request,'Entry_Form.html')
 
 @login_required(login_url='/')
@@ -102,7 +102,7 @@ def exit(request):
             if(o.exit=="Still in Campus"):
                 o.exit=str(current_time)
                 o.save()
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('home/')
             else:
                 messages.error(request, 'Reference ID is not issued.')
 
