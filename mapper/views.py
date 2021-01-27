@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render
+from django.urls import reverse
 from datetime import date
 import os
 import csv
@@ -15,6 +16,7 @@ path=os.getcwd()
 
 from django.shortcuts import redirect
 def home(request):
+		
     if(request.method=='POST'):
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -25,6 +27,7 @@ def home(request):
             return HttpResponseRedirect('home/')
         return HttpResponseRedirect('/')
 
+
     return render(request,'login_page.html')
 
 @login_required(login_url='/')
@@ -34,7 +37,8 @@ def landing_page(request):
 def logout(request):
     print("logout called")
     auth_logout(request)
-    return HttpResponsePermanentRedirect('/')
+    return HttpResponsePermanentRedirect("/")
+    
 
 @login_required(login_url='/')
 def entry(request):
@@ -80,12 +84,12 @@ def entry(request):
                               email=email, identity=identity, Reference=Reference, aadhar=aadhar, section=section)
                 log.save()
                 # return render(request, 'Index.html')
-                return HttpResponseRedirect('home/')
+                return landing_page(request)
         else:
             log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
             log.save()
             # return render(request, 'Index.html')
-            return HttpResponseRedirect('home/')
+            return landing_page(request)
     return render(request,'Entry_Form.html')
 
 @login_required(login_url='/')
@@ -102,7 +106,7 @@ def exit(request):
             if(o.exit=="Still in Campus"):
                 o.exit=str(current_time)
                 o.save()
-                return HttpResponseRedirect('home/')
+                return landing_page(request)
             else:
                 messages.error(request, 'Reference ID is not issued.')
 
