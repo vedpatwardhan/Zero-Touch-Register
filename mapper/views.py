@@ -8,7 +8,7 @@ from django.urls import reverse
 from datetime import date
 import os
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import tz
 from .models import visitor
 from django.contrib import messages
@@ -47,6 +47,7 @@ def entry(request):
     now=now.astimezone(india_tz)
     current_time=now.strftime("%d/%m/%Y, %H:%M:%S")
     # if this is a POST request we need to process the form data
+
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
 
@@ -61,6 +62,8 @@ def entry(request):
         section=request.POST.get("department")
         other=request.POST.get("otherIdentity")
         imagename=request.POST.get("imagename")
+        ref_name=request.POST.get("refname")
+        ref_contect=request.POST.get("refcontact")
         other1=""
         print(imagename)
         if(other==None):
@@ -81,12 +84,13 @@ def entry(request):
             else:
                 log = visitor(name=name, imagename=imagename1, entry=current_time, phone=phone,
                               dateofentry=str(date.today()), address=address, other=other1, purpose=purpose,
-                              email=email, identity=identity, Reference=Reference, aadhar=aadhar, section=section)
+                              email=email, identity=identity, Reference=Reference, aadhar=aadhar,
+                              section=section,ref_name=ref_name,ref_contact=ref_contect)
                 log.save()
                 # return render(request, 'Index.html')
                 return landing_page(request)
         else:
-            log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section)
+            log=visitor(name=name,imagename=imagename1,entry=current_time,phone=phone,dateofentry=str(date.today()),address=address,other=other1,purpose=purpose,email=email,identity=identity,Reference=Reference,aadhar=aadhar,section=section,ref_name=ref_name,ref_contact=ref_contect)
             log.save()
             # return render(request, 'Index.html')
             return landing_page(request)
@@ -123,7 +127,7 @@ def export_users_csv_today(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Today\'s Report.csv"'
     writer = csv.writer(response)
-    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device','Reference Person Name','Reference Person Contact'])
 
     users = visitor.objects.filter(dateofentry=str(date.today())).values_list()
     for user in users:
@@ -137,7 +141,7 @@ def export_users_csv_overall(request):
     response['Content-Disposition'] = 'attachment; filename="Overall Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device','Reference Person Name','Reference Person Contact'])
 
     users = visitor.objects.all().values_list()
     for user in users:
@@ -151,7 +155,7 @@ def export_users_csv_inside(request):
     response['Content-Disposition'] = 'attachment; filename="Still In Campus Report.csv"'
     # today=str(datetime.date.today())
     writer = csv.writer(response)
-    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device','Reference Person Name','Reference Person Contact'])
 
     users = visitor.objects.filter(exit="Still in Campus").values_list()
     for user in users:
@@ -175,7 +179,7 @@ def export_users_csv_date(request):
 
     print(datel)
     writer = csv.writer(response)
-    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device'])
+    writer.writerow(['Entry No.','Name','Entry Time','Entry Date', 'Exit Time', 'Phone', 'Email', 'Address', 'Purpose', 'Identity', 'If Other then Specify', 'Reference ID','Aadhar','Section to be Visited ','Image Name As Taken on Device','Reference Person Name','Reference Person Contact'])
     print("here")
     passv=""
     if len(datel)!=0:
