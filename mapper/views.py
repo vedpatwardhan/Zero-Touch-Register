@@ -15,8 +15,21 @@ from django.contrib import messages
 path=os.getcwd()
 
 from django.shortcuts import redirect
+
+def manualtrigger():
+    print("in trigger")
+    try:
+        today=date.today()
+        tochange=visitor.objects.filter(exit="Still in Campus").exclude(dateofentry=str(today))
+        for object in tochange:
+            object.exit = "Left time unknown"
+            object.save()
+
+    except Exception as e:
+        print(e)
+
+
 def home(request):
-		
     if(request.method=='POST'):
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -32,6 +45,7 @@ def home(request):
 
 @login_required(login_url='/')
 def landing_page(request):
+    manualtrigger()
     return render(request,'Index.html')
 
 def logout(request):
